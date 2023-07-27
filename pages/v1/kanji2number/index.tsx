@@ -1,6 +1,7 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import styles from "../../../styles/pages/kanji2number.module.css";
 
 const initialKanjiNumberValues = {
     value: "",
@@ -25,6 +26,21 @@ const Kanji2Number = () => {
         })
     }
 
+    const deleteHandler = () => {
+        const nweValue = kanjiNumberValues.value.slice(0, kanjiNumberValues.value.length - 1);
+        setKanjiNumberValues({
+            ...kanjiNumberValues,
+            value: nweValue
+        })
+    }
+
+    const deleteAll = () => {
+        setKanjiNumberValues({
+            ...kanjiNumberValues,
+            value: ""
+        })
+    }
+
     const submitHandler = (e: SyntheticEvent<HTMLFormElement>): void => {
         e.preventDefault();
         axios.create().post(`../../api/`, kanjiNumberValues)
@@ -41,12 +57,12 @@ const Kanji2Number = () => {
             })
     }
     return (
-        <>
+        <div className={styles.main}>
             <form onSubmit={submitHandler}>
                 <span>大字表記の漢数字: </span><input type="text" name="value" placeholder="壱や弍などの大字表記の漢数字を入力してください" onChange={inputHandler} value={kanjiNumberValues.value} required/>
                 <button>変換する</button>
             </form>
-            <div>
+            <div className={styles.buttons}>
                 <div>
                     <div onClick={clickHandler}>拾</div>
                     <div onClick={clickHandler}>百</div>
@@ -74,9 +90,11 @@ const Kanji2Number = () => {
                 </div>
                 <div>
                     <div onClick={clickHandler}>零</div>
+                    <div onClick={deleteHandler}>一文字消す</div>
+                    <div onClick={deleteAll}>クリア</div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

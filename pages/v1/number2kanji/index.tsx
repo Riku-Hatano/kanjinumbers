@@ -1,6 +1,7 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import styles from "../../../styles/pages/number2kanji.module.css";
 
 const initialKanjiNumberValues = {
     value: "",
@@ -33,12 +34,12 @@ const Number2Kanji = () => {
             })
     }
     return (
-        <>
+        <div className={styles.main}>
             <form onSubmit={submitHandler}>
                 <span>アラビア数字: </span><input type="text" name="value" placeholder="半角の数字を入力してください" onChange={inputHandler} required/>
                 <button>変換する</button>
             </form>
-        </>
+        </div>
     )
 }
 

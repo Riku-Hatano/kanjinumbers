@@ -1,0 +1,15 @@
+.main {
+    width: 75%;
+}
+
+.main > form {
+    width: 100%;
+}
+
+.main > form > input {
+    width: 80%;
+}
+
+.main > form > button {
+    width: 9%;
+}

@@ -6,7 +6,7 @@ const Result = () => {
     
     return (
         <>
-            <p>{result}</p>
+            <h3>変換結果：{result}</h3>
         </>
     )
 }
