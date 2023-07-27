@@ -1,13 +1,19 @@
 .main > form {
     width: 75%;
+    margin-bottom: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main > form > input {
-    width: 75%;
+    width: 70%;
+    height: 3vh;
 }
 
 .main > form > button {
     width: 10%;
+    height: 4vh;
 }
 
 .buttons {
@@ -32,9 +38,16 @@
     align-items: center;
     height: 6vh;
     color: white;
+    padding: 1px;
+    border: 1px solid black;
 }
 
 .buttons > div > div:hover {
     background-color: white;
     color: black;
+}
+
+.main input,
+.main span {
+    font-size: 20px;
 }
