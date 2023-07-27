@@ -16,7 +16,7 @@ export const K2n = (kanji: string): returnValue => {
             let digitFlag = false;
             let chunkNum = 0;
             
-            for(let j = 0 ; j < kanjiDigits.length - 3 ; j++) { //桁の最後に”兆”、”億”、”万”がついているかチェックする。
+            for(let j = 0 ; j < kanjiDigits.length - 3 ; j++) { //桁の最後に”兆”、”億”、”万”がついているかチェックする
                 if(kanjiChunks[i].indexOf(kanjiDigits[kanjiDigits.length - 1 - j]) !== -1) {
                     digitFlag = true;
                 }
@@ -25,12 +25,12 @@ export const K2n = (kanji: string): returnValue => {
             if(digitFlag) { //桁の最後に”兆”、”億”、”万”のいずれかがついている場合
                 if(kanjiChunks[i].length % 2 === 0) {
                     console.log("even with digit");
-                    for(let j = 0 ; j <= kanjiChunks[i].length / 2 - 1; j++) {
-                        if(j === kanjiChunks[i].length / 2 - 1) {
-                            chunkNum += numberChars[kanjiChars.indexOf(kanjiChunks[i][kanjiChunks[i].length - 2])];
-                            chunkNum = MultiplyDigit(chunkNum, kanjiChunks[i][kanjiChunks[i].length - 1]);
+                    for(let j = 0 ; j <= kanjiChunks[i].length / 2 - 1; j++) { //五千弍百参万の場合chunkNumに5*1000, 2*100, 3をループで追加していく。chunkNumは最終的には5203となり、31行目のMultiplyDigitで5203*10000=52030000となる
+                        if(j === kanjiChunks[i].length / 2 - 1) { //最後のループ(三周目)
+                            chunkNum += numberChars[kanjiChars.indexOf(kanjiChunks[i][kanjiChunks[i].length - 2])]; //chunkNum += 3
+                            chunkNum = MultiplyDigit(chunkNum, kanjiChunks[i][kanjiChunks[i].length - 1]); //chunkNum * 10000　この例だと”万”が桁の数なので10000をchunkNumにかける
                         } else {
-                            chunkNum += KanjiMultiplyFunc(kanjiChunks[i][j * 2], kanjiChunks[i][j * 2 + 1])
+                            chunkNum += KanjiMultiplyFunc(kanjiChunks[i][j * 2], kanjiChunks[i][j * 2 + 1]) //chunkNum+=5000(一周目), chunkNum+=200(二周目)
                         }
                     }
                 } else { 

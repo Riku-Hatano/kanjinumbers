@@ -9,15 +9,23 @@ interface returnValue {
  export const K2nException = (kanji: string): returnValue => {
     const { kanjiDigits, kanjiChars, numberDigits, numberChars } = KanjiNumbersList();
 
-    //kanjiArray以外の文字列（壱、弍、拾など以外の文字列）をなくす
+    //零を含む一文字以上の文字列をなくす
+    if(kanji.length > 1 && kanji.indexOf("零") !== -1) {
+        return {status: false, message: "零が不正な位置にあります"};
+    }
+
+    //kanjiArray以外の文字列（壱、弍、拾など以外の文字列）をなくす、不正な文字の並び（四五など）をなくす
     const kanjiArr = [...kanjiChars, ...kanjiDigits]; //[壱,弐,参..., 拾,百,千...]
     for(let i = 0 ; i < kanji.length ; i++) {
+        if(kanjiChars.indexOf(kanji[i]) !== -1 && kanjiChars.indexOf(kanji[i + 1]) !== -1) {
+            return {status: false, message: "百四八のように、漢数字が連続して続いています"};
+        }
         for(let j = 0 ; j < kanjiArr.length ; j++) {
             if(kanji[i] === kanjiArr[j]) {
                 break;
             }
             if(j === kanjiArr.length - 1) {
-                return {status: false, message: "不要な文字が含まれています"};
+                return {status: false, message: "不正な文字が含まれています"};
             }
         }
     }
@@ -32,6 +40,7 @@ interface returnValue {
             return {status: false, message: "兆、億、万のいずれかの文字が二つ以上含まれています"};
         }
     }
+
     if(digitOrderArr.length !== 0) { //兆、億、万のありえない並びをなくす（五百万兆など）
         for(let i = 0 ; i < digitOrderArr.length - 1 ; i++) {
             if(digitOrderArr[i] >= digitOrderArr[i + 1]) {
@@ -39,6 +48,7 @@ interface returnValue {
             }
         }
     }
+
 
     //桁ごとにチャンク分けをし、25行目と同じように例外をなくす
     const kanjiChunks = MakeChunks(kanji); // console.log(kanjiChunks)は['四千兆', '五千五百万', '四拾八']のようになる
