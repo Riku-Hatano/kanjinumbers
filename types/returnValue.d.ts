@@ -1,5 +1,5 @@
 export interface returnValue {
-    status: boolean,
-    statusCode: number,
-    result: string
+  status: boolean;
+  statusCode: number;
+  result: string;
 }

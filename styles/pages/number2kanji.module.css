@@ -1,25 +1,25 @@
 .main {
-    width: 75%;
+  width: 75%;
 }
 
 .main > form {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main > form > input {
-    width: 70%;
-    height: 3vh;
+  width: 70%;
+  height: 3vh;
 }
 
 .main > form > button {
-    width: 9%;
-    height: 4vh;
+  width: 9%;
+  height: 4vh;
 }
 
 .main span,
 .main input {
-    font-size: 20px;
+  font-size: 20px;
 }
